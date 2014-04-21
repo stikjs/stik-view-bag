@@ -1,4 +1,6 @@
 module.exports = function(grunt){
+  var srcFiles = [ 'src/view-bag.js' ]
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     meta: {
@@ -14,11 +16,20 @@ module.exports = function(grunt){
     jasmine: {
       src: [
         'node_modules/stik-core.js/stik-core.js',
-        'node_modules/stik-labs.js/stik-labs.js',
-        'view-bag.js'
-      ],
+        'node_modules/stik-labs.js/stik-labs.js'
+      ].concat(srcFiles),
       options: {
-        specs: 'specs.js',
+        specs: 'specs/*_spec.js',
+      }
+    },
+    concat: {
+      options: {
+        separator: '\n',
+        banner: '<%= meta.banner %>'
+      },
+      src: {
+        src: srcFiles,
+        dest: '<%= pkg.name %>'
       }
     },
     uglify: {
@@ -28,15 +39,16 @@ module.exports = function(grunt){
       },
       stik: {
         files: {
-         'view-bag.min.js': ['view-bag.js']
+         'stik-view-bag.min.js': ['stik-view-bag.js']
         }
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-jasmine');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
   grunt.registerTask('test', 'jasmine');
-  grunt.registerTask('pack', 'uglify');
+  grunt.registerTask('pack', ['concat', 'uglify']);
 };
