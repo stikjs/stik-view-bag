@@ -1,3 +1,7 @@
+require("./spec_helper")
+
+var stik = window.stik;
+
 describe("ViewBag", function(){
   it("#initializing", function(){
     var lab = stik.labs.boundary({
@@ -13,9 +17,8 @@ describe("ViewBag", function(){
     it("with a single binding", function(){
       var template, viewBag, data;
 
-      template = new DOMParser().parseFromString(
-        '<div><span data-key="userName"></span></div>', "text/xml"
-      ).firstChild;
+      template = document.createElement("div");
+      template.innerHTML = "<span data-key=\"userName\"></span>";
 
       viewBag = stik.labs.boundary({
         name: "$viewBag"
@@ -23,7 +26,7 @@ describe("ViewBag", function(){
         $template: template
       });
 
-      data = {userName: 'Luke Skywalker'};
+      data = {userName: "Luke Skywalker"};
 
       viewBag.push(data);
 
@@ -35,13 +38,9 @@ describe("ViewBag", function(){
     it("with a multiple bindings", function(){
       var template, viewBag, data;
 
-      template = new DOMParser().parseFromString(
-        '<div>'+
-          '<span data-key="userName"></span>' +
-          '<a href="#" data-key="removal"></a>' +
-        '</div>',
-        "text/xml"
-      ).firstChild;
+      template = document.createElement("div");
+      template.innerHTML = "<span data-key=\"userName\"></span>" +
+        "<a href=\"#\" data-key=\"removal\"></a>";
 
       viewBag = stik.labs.boundary({
         name: "$viewBag"
@@ -50,8 +49,8 @@ describe("ViewBag", function(){
       });
 
       data = {
-        userName: 'Luke Skywalker',
-        removal: 'kill Luke Skywalker'
+        userName: "Luke Skywalker",
+        removal: "kill Luke Skywalker"
       };
 
       viewBag.push(data);
@@ -68,10 +67,8 @@ describe("ViewBag", function(){
     it("with self-bound template", function(){
       var template, viewBag, data;
 
-      template = new DOMParser().parseFromString(
-        '<div data-key="userName"></div>',
-        "text/xml"
-      ).firstChild;
+      template = document.createElement("div");
+      template.setAttribute("data-key", "userName")
 
       viewBag = stik.labs.boundary({
         name: "$viewBag"
@@ -79,7 +76,7 @@ describe("ViewBag", function(){
         $template: template
       });
 
-      data = {userName: 'Luke Skywalker'};
+      data = {userName: "Luke Skywalker"};
 
       viewBag.push(data);
 
@@ -91,13 +88,9 @@ describe("ViewBag", function(){
     it("should update input elements", function(){
       var template, viewBag, data;
 
-      template = new DOMParser().parseFromString(
-        '<div>'+
-          '<input type="text" data-key="speaker" />' +
-          '<textarea data-key="catchPhrase"></textarea>' +
-        '</div>',
-        "text/xml"
-      ).firstChild;
+      template = document.createElement("div");
+      template.innerHTML = "<input type=\"text\" data-key=\"speaker\" />" +
+        "<textarea data-key=\"catchPhrase\"></textarea>";
 
       viewBag = stik.labs.boundary({
         name: "$viewBag"
@@ -124,14 +117,10 @@ describe("ViewBag", function(){
     it("should only try to bind properties that are in the object", function(){
       var template, viewBag, data;
 
-      template = new DOMParser().parseFromString(
-        '<div>'+
-          '<span data-key="userName"></span>' +
-          '<strong data-key="dontBind"></strong>' +
-          '<a href="#" data-key="removal"></a>' +
-        '</div>',
-        "text/xml"
-      ).firstChild;
+      template = document.createElement("div");
+      template.innerHTML = "<span data-key=\"userName\"></span>" +
+        "<strong data-key=\"dontBind\"></strong>" +
+        "<a href=\"#\" data-key=\"removal\"></a>";
 
       viewBag = stik.labs.boundary({
         name: "$viewBag"
@@ -139,7 +128,7 @@ describe("ViewBag", function(){
         $template: template
       });
 
-      data = {userName: 'Luke Skywalker'};
+      data = {userName: "Luke Skywalker"};
 
       viewBag.push(data);
 
@@ -155,10 +144,8 @@ describe("ViewBag", function(){
     it("should set empty values", function(){
       var template, viewBag, data;
 
-      template = new DOMParser().parseFromString(
-        '<div><span data-key="userName">Luke</span></div>',
-        "text/xml"
-      ).firstChild;
+      template = document.createElement("div");
+      template.innerHTML = "<span data-key=\"userName\">Luke</span>";
 
       viewBag = stik.labs.boundary({
         name: "$viewBag"
@@ -176,10 +163,9 @@ describe("ViewBag", function(){
     it("out of one bound node", function(){
       var template, viewBag;
 
-      template = new DOMParser().parseFromString(
-        '<div data-key="userName">Luke Skywalker</div>',
-        "text/xml"
-      ).firstChild;
+      template = document.createElement("div");
+      template.setAttribute("data-key", "userName");
+      template.textContent = "Luke Skywalker";
 
       viewBag = stik.labs.boundary({
         name: "$viewBag"
@@ -195,13 +181,9 @@ describe("ViewBag", function(){
     it("out of multiple bound nodes", function(){
       var template, viewBag;
 
-      template = new DOMParser().parseFromString(
-        '<div>'+
-          '<span data-key="userName">Luke Skywalker</span>' +
-          '<a href="#" data-key="removal">kill Luke Skywalker</a>' +
-        '</div>',
-        "text/xml"
-      ).firstChild;
+      template = document.createElement("div");
+      template.innerHTML = "<span data-key=\"userName\">Luke Skywalker</span>" +
+        "<a href=\"#\" data-key=\"removal\">kill Luke Skywalker</a>"
 
       viewBag = stik.labs.boundary({
         name: "$viewBag"
