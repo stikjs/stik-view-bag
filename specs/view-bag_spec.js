@@ -1,7 +1,5 @@
 require("./spec_helper")
 
-var stik = window.stik;
-
 describe("ViewBag", function(){
   it("#initializing", function(){
     var lab = stik.labs.boundary({

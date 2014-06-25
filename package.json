@@ -1,8 +1,8 @@
 {
-  "name": "stik-view-bag.js",
+  "name": "stik-view-bag",
   "version": "0.3.0",
   "description": "An extension for handing data within your stik templates",
-  "main": "stik-view-bag.js",
+  "main": "dist/stik-view-bag.js",
   "scripts": {
     "test": "gulp test"
   },
@@ -18,19 +18,19 @@
   "author": "Lukas Alexandre",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/stikjs/stik-view-bag.js/issues"
+    "url": "https://github.com/stikjs/stik-view-bag/issues"
   },
   "homepage": "http://stikjs.com/docs/view-bag",
   "dependencies": {
-    "stik-core.js": "1.x",
-    "jsdom": "^0.11.0"
+    "stik-core": "^1.0.3"
   },
   "devDependencies": {
-    "stik-labs.js": "0.x",
+    "stik-labs": "0.x",
     "gulp-concat": "^2.2.0",
     "gulp-jasmine": "^0.2.0",
     "gulp-uglify": "^0.3.1",
     "gulp-header": "^1.0.2",
-    "gulp": "^3.8.2"
+    "gulp": "^3.8.2",
+    "jsdom": "^0.11.0"
   }
 }
