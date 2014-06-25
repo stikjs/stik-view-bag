@@ -1,4 +1,4 @@
-// Stik-view-bag - Version: 0.2.0 | From: 25-6-2014
+// Stik-view-bag - Version: 0.3.0 | From: 25-6-2014
 (function( stik ){
   stik.boundary({
     as: "$viewBag",
